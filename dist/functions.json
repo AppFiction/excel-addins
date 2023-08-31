@@ -1,0 +1,23 @@
+{
+    "functions": [
+        {
+            "description": "Fetch json from a URL and show data in excel",
+            "id": "FETCHMARKETDATA",
+            "name": "FETCHMARKETDATA",
+            "parameters": [],
+            "result": {}
+        },
+        {
+            "description": "Displays the current time once a second",
+            "id": "CLOCK",
+            "name": "CLOCK",
+            "options": {
+                "stream": true
+            },
+            "parameters": [],
+            "result": {
+                "type": "string"
+            }
+        }
+    ]
+}
