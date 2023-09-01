@@ -2,8 +2,14 @@
     "functions": [
         {
             "description": "Fetch json from a URL and show data in excel",
-            "id": "FETCHMARKETDATA",
-            "name": "FETCHMARKETDATA",
+            "id": "FETCHMARKETDATARESULTS",
+            "name": "FETCHMARKETDATARESULTS",
+            "parameters": [],
+            "result": {}
+        },
+        {
+            "id": "FETCHMARKETDATAINPUTS",
+            "name": "FETCHMARKETDATAINPUTS",
             "parameters": [],
             "result": {}
         },

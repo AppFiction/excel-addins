@@ -1,23 +1,16 @@
 ﻿/* global clearInterval, console, setInterval */
+const gistRawURL = "https://gist.githubusercontent.com/AppFiction/750ae98fa400bb836515eee162b39057/raw/348b1216a59fef357945710cc20270b4ede089b1/market-data.json";
 
 /**
  * Fetch json from a URL and show data in excel
  * @customfunction
  *  
  */
-async function fetchMarketData() {
+async function fetchMarketDataResults() {
   debugger
-  const gistRawURL = "https://gist.githubusercontent.com/AppFiction/750ae98fa400bb836515eee162b39057/raw/348b1216a59fef357945710cc20270b4ede089b1/market-data.json";
   try {
-
-    // Mock market data - Replace this with actual data from your API
     const response = await fetch(gistRawURL);
     const marketData = await response.json();
-
-    console.log("RES", response);
-
-    // Get the current cell address from the invocation object
-    // const currentCellAddress = Excel.Script.CustomFunctions.invocation.address;
 
     // Convert market data to an array of arrays for Excel
     const dataMatrix = [];
@@ -40,10 +33,41 @@ async function fetchMarketData() {
       console.error("Error writing data to worksheet: ", error);
     });
 
-    return "Data fetched and added to the worksheet successfully!";
+    return "Results Data fetched and added to the worksheet successfully!";
   } catch (error) {
     console.error("Error fetching data: ", error);
     return "Error fetching data. Check console for details.";
+  }
+}
+
+// Define the custom function using @customfunction decorator to fetch market data inputs
+/** @customfunction */
+async function fetchMarketDataInputs() {
+  try {
+  
+    // Mock market data - Replace this with actual data from your API
+    const response = await fetch(gistRawURL);
+    const marketData = await response.json();
+
+    // Convert inputs array to a 2D array for Excel
+    const inputsMatrix = [marketData.inputs];
+
+    // Write inputs data to Excel worksheet starting from the current cell
+    Excel.run(function (context) {
+      const range = context.workbook.getSelectedRange();
+      const resizedRange = range.getResizedRange(inputsMatrix.length - 1, inputsMatrix[0].length - 1);
+
+      resizedRange.values = inputsMatrix;
+
+      return context.sync();
+    }).catch(function (error) {
+      console.error("Error writing inputs data to worksheet: ", error);
+    });
+
+    return "Inputs data fetched and added to the worksheet successfully!";
+  } catch (error) {
+    console.error("Error fetching inputs data: ", error);
+    return "Error fetching inputs data. Check console for details.";
   }
 }
 
@@ -61,11 +85,6 @@ export function clock(invocation) {
   invocation.onCanceled = () => {
     clearInterval(timer);
   };
-}
-
-// Function to introduce a delay (mocking an asynchronous operation)
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 /**
