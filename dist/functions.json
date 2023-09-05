@@ -14,16 +14,10 @@
             "result": {}
         },
         {
-            "description": "Displays the current time once a second",
-            "id": "CLOCK",
-            "name": "CLOCK",
-            "options": {
-                "stream": true
-            },
+            "id": "FETCHSUPPORTEDINPUTSBYANALYTICS",
+            "name": "FETCHSUPPORTEDINPUTSBYANALYTICS",
             "parameters": [],
-            "result": {
-                "type": "string"
-            }
+            "result": {}
         }
     ]
 }
